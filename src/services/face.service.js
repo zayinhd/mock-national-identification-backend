@@ -35,7 +35,20 @@ async function generateDescriptor(imagePath) {
     return Array.from(detection.descriptor);
 }
 
+function compareDescriptors(descriptor1, descriptor2) {
+    let sum = 0;
+
+    for (let i = 0; i < descriptor1.length; i++) {
+        sum += Math.pow(descriptor1[i] - descriptor2[i], 2);
+    }
+
+    const distance = Math.sqrt(sum);
+
+    return distance;
+}
+
 module.exports = {
     loadModels,
     generateDescriptor,
+    compareDescriptors,
 };

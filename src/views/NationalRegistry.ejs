@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>National Registry</title>
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #f5f5f5;
+                padding: 40px;
+            }
+
+            .container {
+                max-width: 900px;
+                margin: auto;
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            form {
+                display: grid;
+                gap: 15px;
+            }
+
+            input,
+            select,
+            textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            button {
+                background: #2563eb;
+                color: white;
+                border: none;
+                padding: 12px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+
+            button:hover {
+                background: #1d4ed8;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <h1>Create Citizen Record</h1>
+
+            <form
+                action="/registry/create"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+                <input
+                    type="text"
+                    name="nationalId"
+                    placeholder="National ID Number"
+                    required
+                />
+
+                <input
+                    type="text"
+                    name="fullName"
+                    placeholder="Full Name"
+                    required
+                />
+
+                <input type="date" name="dateOfBirth" required />
+
+                <select name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+
+                <input type="text" name="phone" placeholder="Phone Number" />
+
+                <input
+                    type="text"
+                    name="placeOfBirth"
+                    placeholder="Place Of Birth"
+                />
+
+                <input type="text" name="nationality" value="Ghanaian" />
+
+                <textarea name="address" placeholder="Address"></textarea>
+
+                <input type="file" name="photo" accept="image/*" required />
+
+                <button type="submit">Create Citizen</button>
+            </form>
+        </div>
+    </body>
+</html>
