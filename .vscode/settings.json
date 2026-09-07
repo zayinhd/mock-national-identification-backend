@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^cd /c/Users/zayin/Desktop/Project/mock-national-id-verification && node --check src/index\\.js$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
