@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
@@ -9,6 +10,7 @@ const verificationRoutes = require("./routes/verification.routes");
 const registryRoutes = require("./routes/registry.routes");
 
 const app = express();
+const uploadsPath = path.join(process.cwd(), "uploads");
 
 app.set("view engine", "ejs");
 
@@ -34,10 +36,21 @@ app.use("/registry", registryRoutes);
 
 app.use("/api/verification", verificationRoutes);
 
-(async () => {
-    await loadModels();
-})();
+async function bootstrap() {
+    if (!fs.existsSync(uploadsPath)) {
+        fs.mkdirSync(uploadsPath, {
+            recursive: true,
+        });
+    }
 
-app.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
+    await loadModels();
+
+    app.listen(PORT, () => {
+        console.log(`Server running on ${PORT}`);
+    });
+}
+
+bootstrap().catch((error) => {
+    console.error("Failed to start server", error);
+    process.exit(1);
 });
