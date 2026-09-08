@@ -1,4 +1,3 @@
-const path = require("path");
 const fs = require("fs");
 
 const supabase = require("../config/supabase");
@@ -14,9 +13,17 @@ exports.verifyIdentity = async (req, res) => {
     try {
         const { nationalId, userId } = req.body;
 
+        if (!nationalId || !userId) {
+            return res.status(400).json({
+                message: "nationalId and userId are required",
+                code: "MISSING_REQUIRED_FIELDS",
+            });
+        }
+
         if (!req.file) {
             return res.status(400).json({
                 message: "Selfie required",
+                code: "SELFIE_REQUIRED",
             });
         }
 
@@ -31,6 +38,7 @@ exports.verifyIdentity = async (req, res) => {
         if (error || !citizen) {
             return res.status(404).json({
                 message: "National ID not found",
+                code: "NATIONAL_ID_NOT_FOUND",
             });
         }
 
@@ -102,6 +110,7 @@ exports.verifyIdentity = async (req, res) => {
 
         return res.status(500).json({
             message: "Verification failed",
+            code: "VERIFICATION_FAILED",
         });
     } finally {
         if (tempFilePath && fs.existsSync(tempFilePath)) {
